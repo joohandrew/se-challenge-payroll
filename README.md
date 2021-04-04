@@ -18,8 +18,10 @@ prerequisites: Need postgresql and node installed on your machine
 4. yarn start
 5. open Postman
 6. http://localhost:{portNumber}/api/employeeLog/upload
+   - Make sure the request is set to POST
    - in Body, select form-data, KEY=file and VALUE={yourValidCSVFile}
 7. http://localhost:{portNumber}/api/employeeLog/report
+   - Make sure the request is set to GET
    - in Params, KEY=reportId and VALUE={reportNumber}
 
 ## Questions
@@ -33,6 +35,7 @@ prerequisites: Need postgresql and node installed on your machine
    - I would a CI/CD pipeline
    - I would add authentication/authorization tokens so API wouldn't get abused
    - I would dockerize the API for simplifying installation process, packaging, distribution, and runtime isolation purposes
+   - I would also want to handle all the csvs that's being uploaded better. Right now I am just storing into a folder called static, but maybe if these reports are important and worth keeping, they should be in somewhere secure like Amazon S3
 3. What compromises did you have to make as a result of the time constraints of this challenge?
    - No error checking on the CSV itself other than checking for file type
    - I didn't handle for cases when different reports having the same log (ie. duplicate logs)
