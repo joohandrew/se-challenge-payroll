@@ -1,7 +1,5 @@
-// Assume that Job group types will not change.
-// If the assumption isn't valid, then this can always be a relational database table.
-
 /**
+ * Assume that Job group types will never change.
  * Enum for common Job groups.
  * @readonly
  * @enum {{name: string, rate: int}}
@@ -17,3 +15,12 @@ export const Job = Object.freeze({
     rate: 30,
   },
 });
+
+export const getJobType = (type: string) => {
+  switch (type) {
+    case "A":
+      return Job.A;
+    case "B":
+      return Job.B;
+  }
+};

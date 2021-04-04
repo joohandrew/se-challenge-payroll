@@ -34,6 +34,38 @@ export class EmployeeLogController {
     }
   };
 
+  public report = async (req: Request, res: Response) => {
+    const reportId = req.query.reportId;
+    try {
+      if (!reportId) {
+        res.status(400).send({
+          message: `Must add param reportId to the request`,
+        });
+      }
+      let isNum = /^\d+$/.test(reportId as string);
+      if (!isNum) {
+        res.status(400).send({
+          message: `reportId param should only contain numeric digits`,
+        });
+      }
+
+      const payrollReport = await this.employeeLogService.report(
+        Number(reportId)
+      );
+      res.send(payrollReport);
+    } catch (error) {
+      if (error.message === "noReport") {
+        res.status(400).send({
+          message: `Report with ID ${reportId} does not exist`,
+        });
+      } else {
+        res.status(500).send({
+          message: `Could not generate a JSON response for report #${reportId}`,
+        });
+      }
+    }
+  };
+
   /**
    * Configure the routes of controller
    */
@@ -44,5 +76,6 @@ export class EmployeeLogController {
       fileFilter: csvFilter,
     });
     this.router.post("/upload", upload.single("file"), this.upload);
+    this.router.get("/report", this.report);
   }
 }

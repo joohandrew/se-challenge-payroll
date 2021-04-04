@@ -16,6 +16,9 @@ export class EmployeeLog extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  employeeId: number;
+
   @ManyToOne(() => Employee)
   @JoinColumn()
   employee: Employee;
@@ -28,6 +31,12 @@ export class EmployeeLog extends BaseEntity {
 
   @Column()
   logDate: Date;
+
+  @Column()
+  payPeriodStartDate: Date;
+
+  @Column()
+  payPeriodEndDate: Date;
 
   @Column("decimal", { precision: 5, scale: 2 })
   hoursWorked: number;
