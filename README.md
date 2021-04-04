@@ -1,3 +1,44 @@
+# Andrew Joohan Oh's Documentation
+
+## Brief description of architecture
+
+- RESTful API using Express and Node.jS in Typescript
+- TypeORM to connect to database and hook backend models to database tables as entities
+- PostgresSQL to support relational database
+
+## Instructions on how to build/run your application
+
+prerequisites: Need postgresql and node installed on your machine
+
+1. yarn install
+2. create your database in postgresql
+3. create a .env file at the same directory level as .env.example
+   - DATABASE_URL=postgresql://{username}:{password}@localhost:{port}/{databaseName}
+     - PORT=4000
+4. yarn start
+5. open Postman
+6. http://localhost:{portNumber}/api/employeeLog/upload
+   - in Body, select form-data, KEY=file and VALUE={yourValidCSVFile}
+7. http://localhost:{portNumber}/api/employeeLog/report
+   - in Params, KEY=reportId and VALUE={reportNumber}
+
+## Questions
+
+1. How did you test that your implementation was correct?
+   - Due to the limited time I could work on this, I tested it using Postman with different CSVs
+2. If this application was destined for a production environment, what would you add or change?
+   - I would definitely add some unit tests and automation tests
+   - I would handle more edge cases for /upload endpoint
+   - I would also write migration tests to set up the database
+   - I would a CI/CD pipeline
+   - I would add authentication/authorization tokens so API wouldn't get abused
+   - I would dockerize the API for simplifying installation process, packaging, distribution, and runtime isolation purposes
+3. What compromises did you have to make as a result of the time constraints of this challenge?
+   - No error checking on the CSV itself other than checking for file type
+   - I didn't handle for cases when different reports having the same log (ie. duplicate logs)
+   - No unit tests
+   - Did not write migration tests
+
 # Wave Software Development Challenge
 
 Applicants for the Full-stack Developer role at Wave must
@@ -72,47 +113,47 @@ We've agreed to build an API with the following endpoints to serve HTTP requests
 
 As an example, given the upload of a sample file with the following data:
 
-   | date       | hours worked | employee id | job group |
-   | ---------- | ------------ | ----------- | --------- |
-   | 2020-01-04 | 10           | 1           | A         |
-   | 2020-01-14 | 5            | 1           | A         |
-   | 2020-01-20 | 3            | 2           | B         |
-   | 2020-01-20 | 4            | 1           | A         |
+| date       | hours worked | employee id | job group |
+| ---------- | ------------ | ----------- | --------- |
+| 2020-01-04 | 10           | 1           | A         |
+| 2020-01-14 | 5            | 1           | A         |
+| 2020-01-20 | 3            | 2           | B         |
+| 2020-01-20 | 4            | 1           | A         |
 
 A request to the report endpoint should return the following JSON response:
 
-   ```json
-   {
-     "payrollReport": {
-       "employeeReports": [
-         {
-           "employeeId": "1",
-           "payPeriod": {
-             "startDate": "2020-01-01",
-             "endDate": "2020-01-15"
-           },
-           "amountPaid": "$300.00"
-         },
-         {
-           "employeeId": "1",
-           "payPeriod": {
-             "startDate": "2020-01-16",
-             "endDate": "2020-01-31"
-           },
-           "amountPaid": "$80.00"
-         },
-         {
-           "employeeId": "2",
-           "payPeriod": {
-             "startDate": "2020-01-16",
-             "endDate": "2020-01-31"
-           },
-           "amountPaid": "$90.00"
-         }
-       ]
-     }
-   }
-   ```
+```json
+{
+  "payrollReport": {
+    "employeeReports": [
+      {
+        "employeeId": "1",
+        "payPeriod": {
+          "startDate": "2020-01-01",
+          "endDate": "2020-01-15"
+        },
+        "amountPaid": "$300.00"
+      },
+      {
+        "employeeId": "1",
+        "payPeriod": {
+          "startDate": "2020-01-16",
+          "endDate": "2020-01-31"
+        },
+        "amountPaid": "$80.00"
+      },
+      {
+        "employeeId": "2",
+        "payPeriod": {
+          "startDate": "2020-01-16",
+          "endDate": "2020-01-31"
+        },
+        "amountPaid": "$90.00"
+      }
+    ]
+  }
+}
+```
 
 We consider ourselves to be language agnostic here at Wave, so feel free to use any combination of technologies you see fit to both meet the requirements and showcase your skills. We only ask that your submission:
 
