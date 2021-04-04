@@ -14,7 +14,7 @@ prerequisites: Need postgresql and node installed on your machine
 2. create your database in postgresql
 3. create a .env file at the same directory level as .env.example
    - DATABASE_URL=postgresql://{username}:{password}@localhost:{port}/{databaseName}
-   - PORT=4000
+   - PORT={port}
 4. yarn start
 5. open Postman
 6. http://localhost:{portNumber}/api/employeeLog/upload
