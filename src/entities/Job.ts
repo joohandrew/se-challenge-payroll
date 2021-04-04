@@ -1,26 +1,19 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  BaseEntity,
-} from "typeorm";
+// Assume that Job group types will not change.
+// If the assumption isn't valid, then this can always be a relational database table.
 
-@Entity()
-export class Job extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+/**
+ * Enum for common Job groups.
+ * @readonly
+ * @enum {{name: string, rate: int}}
+ */
 
-  @Column({ unique: true })
-  name: string;
-
-  @Column()
-  rate: number;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-}
+export const Job = Object.freeze({
+  A: {
+    name: "A",
+    rate: 20,
+  },
+  B: {
+    name: "B",
+    rate: 30,
+  },
+});
